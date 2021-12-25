@@ -79,7 +79,8 @@ Route::prefix('panel')->middleware('isAdmin')->group(function (){
     Route::resource('marka', BrandController::class);
 
     Route::prefix('ürün')->group(function (){
-        Route::get('/ekle', [ProductController::class, 'create'])->name('product.create');
+        Route::get('/ekle', [ProductController::class, 'show'])->name('product.show');
+        Route::post('/eklendi', [ProductController::class, 'create'])->name('product.create');
     });
 
 });

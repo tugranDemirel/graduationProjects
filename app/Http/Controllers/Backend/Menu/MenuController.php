@@ -129,6 +129,17 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $menu = Menu::find($id);
+        if ($menu)
+        {
+            $menu->delete();
+            toastSuccess('Başarılı bir şekilde silme işlemi gerçekleştirildi');
+            return redirect()->route('menu.index');
+        }
+        else
+        {
+            toastError('Böyle bir sayfa bulunamadı');
+            return redirect()->back();
+        }
     }
 }

@@ -42,7 +42,7 @@
                                 <div class="form-group row">
                                     <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> Marka Adı</label>
                                     <div class="col-xl-8 col-md-7">
-                                        <input class="form-control" id="validationCustom0" name="title" type="text" required>
+                                        <input class="form-control" id="validationCustom0" name="title" id="title" type="text" required>
                                     </div>
                                 </div>
                             </div>
@@ -51,19 +51,19 @@
                                 <div class="form-group row">
                                     <label for="validationCustom2" class="col-xl-3 col-md-4">Meta Keywords</label>
                                     <div class="col-xl-8 col-md-7">
-                                        <input class="form-control" id="validationCustom2" type="text" name="keywords" required>
+                                        <input class="form-control" id="keyw" type="text" name="keywords"  required>
                                     </div>
                                 </div>
                                 <div class="form-group row editor-label">
                                     <label class="col-xl-3 col-md-4">Meta Description</label>
                                     <div class="col-xl-8 col-md-7">
-                                        <textarea rows="4" class="form-control" required name="description"></textarea>
+                                        <textarea rows="4" class="form-control" required id="desc" name="description"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="pull-right">
-                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                            <button type="submit" id="brandSave" class="btn btn-primary">Kaydet</button>
                         </div>
                     </form>
                 </div>
@@ -74,4 +74,18 @@
     </div>
 @endsection
 @section('js')
+    <script>
+        $(document).ready(function () {
+            $('#brandSave').click(function (){
+                let inputKeyw = $('#keyw').val();
+                let inputDesc = $('#desc').val();
+                let inputTitle = $('#title').val();
+                if((inputKeyw.trim() == '') || (inputDesc.trim() == '') ||(inputTitle.trim() == ''))
+                {
+                    toastr.warning('Lütfen boş bırakılan kısımları doldurunuz.', 'Eksik Bilgi!');
+                }
+            });
+
+        });
+    </script>
 @endsection

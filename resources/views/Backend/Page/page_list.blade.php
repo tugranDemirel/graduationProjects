@@ -47,7 +47,7 @@
                                     <td>{{$value->title}}</td>
                                     <td>{{$value->created_at}}</td>
                                     <td>{{$value->updated_at}}</td>
-                                    <td><button class="@if($value->status == 0)  btn-primary @else btn-success @endif  btn-sm"  disabled>@if($value->status == 0)  İnaktif @else Aktif @endif</button></td>
+                                    <td><button data-id="{{$value->id}}" class="changeStatus @if($value->status == 0)  btn-primary @else btn-success @endif  btn-sm"> @if($value->status == 0)  İnaktif @else Aktif @endif</button></td>
                                    <td >
                                        <a href="{{route('sozlesme.edit', base64_encode($value->id))}}" title="Düzenle" class="btn btn-sm"><i style="font-size: 10px; color: green;" class="fas fa-pen" ></i></a>
                                        <a href="{{route('sozlesme.destroy', $value->id)}}" title="Sil" class="btn btn-sm"><i class="fas fa-trash" style="font-size: 10px; color: red;"></i></a>
@@ -66,4 +66,9 @@
     </div>
 @endsection
 @section('js')
+    <script>
+        $(document).ready(function () {
+            $('.changeStatus').prop('disabled', true);
+        });
+    </script>
 @endsection
