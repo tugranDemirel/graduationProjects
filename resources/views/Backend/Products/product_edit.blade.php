@@ -1,5 +1,5 @@
 @extends('Backend.layouts.master')
-@section('title') Ürün @endsection
+@section('title') {{ kerem()  }} @endsection
 @section('css')
     <!-- Dropzone css-->
     <link rel="stylesheet" type="text/css" href="{{asset('Backend/assets/css/vendors/dropzone.css')}}">
@@ -38,7 +38,7 @@
                                 <div class="digital-add needs-validation">
                                     <div class="form-group">
                                         <label for="validationCustom01" class="col-form-label pt-0"><span>*</span> Ürün Adı</label>
-                                        <input class="form-control" id="title" name="title" type="text" value="" >
+                                        <input class="form-control" id="title" name="title" type="text" value="{{$product->title}}" >
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label"><span>*</span> Marka</label>
@@ -63,7 +63,7 @@
                                             <div class="col-xl-6">
                                                 <div class="form-group">
                                                     <label for="price" class="col-form-label"><span>*</span> Ürün Fiyatı</label>
-                                                    <input class="form-control" id="price" type="text" name="price">
+                                                    <input class="form-control" id="price" type="text" name="price" value="{{$product->price}}">
                                                     <span class="text-danger error-text " data-id="price"></span>
                                                 </div>
                                             </div>
@@ -115,7 +115,7 @@
                                 <div class="digital-add needs-validation">
                                     <div class="form-group mb-0">
                                         <div class="description-sm">
-                                            <textarea id="about" name="about" cols="10" rows="4">{{$product->description}}</textarea>
+                                            <textarea id="about" name="about" cols="10" rows="4">{{$product->about}}</textarea>
                                         </div>
                                     </div>
                                 </div>

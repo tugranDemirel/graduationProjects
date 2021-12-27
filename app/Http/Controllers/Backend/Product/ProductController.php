@@ -64,7 +64,7 @@ class ProductController extends Controller
     {
         $brands = Brand::all();
         $menus = Menu::where('status', 1)->get();
-        $product = Product::Where('hash', $hash)->get();
+        $product = Product::where('hash', $hash)->firstOrFail();
         return view('Backend.Products.product_edit', compact('brands', 'menus', 'product'));
     }
 
