@@ -19,7 +19,7 @@
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{route('product.show')}}"><i class="fa fa-circle"></i>Ürün Ekle</a></li>
-                            <li><a href="category-digitalsub.html"><i class="fa fa-circle"></i>Ürün Listesi</a></li>
+                            <li><a href="{{ route('product.list') }}"><i class="fa fa-circle"></i>Ürün Listesi</a></li>
                         </ul>
                     </li>
                     <li>

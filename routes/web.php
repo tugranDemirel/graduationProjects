@@ -81,6 +81,9 @@ Route::prefix('panel')->middleware('isAdmin')->group(function (){
     Route::prefix('ürün')->group(function (){
         Route::get('/ekle', [ProductController::class, 'show'])->name('product.show');
         Route::post('/eklendi', [ProductController::class, 'create'])->name('product.create');
+        Route::get('/listesi', [ProductController::class, 'list'])->name('product.list');
+        Route::get('/edit/{hash}', [ProductController::class, 'edit'])->name('product.edit');
+        Route::get('destroy/{hash}', [BrandController::class, 'destroy'])->name('product.destroy');
     });
 
 });

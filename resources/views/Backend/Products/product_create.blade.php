@@ -26,7 +26,7 @@
 
         <!-- Container-fluid starts-->
         <div class="container-fluid">
-            <form action="{{route('product.create')}}" method="POST">
+            <form action="{{route('product.create')}}" method="POST" enctype="multipart/form-data">
             <div class="row product-adding">
                     @csrf
                     <div class="col-xl-6 ">
@@ -51,10 +51,10 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label"><span>*</span> Kategori</label>
-                                        <select class="custom-select form-control" required="" name="brand">
+                                        <select class="custom-select form-control" required="" name="menu">
                                             <option value="">--Belirtilmemiş--</option>
-                                            @foreach($menu as $brand)
-                                                <option value="{{$brand->id}}">{{$brand->title}}</option>
+                                            @foreach($menus as $menu)
+                                                <option value="{{$menu->id}}">{{$menu->title}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -62,14 +62,16 @@
                                        <div class="row">
                                            <div class="col-xl-6">
                                                <div class="form-group">
-                                                   <label for="validationCustom02" class="col-form-label"><span>*</span> Ürün Fiyatı</label>
-                                                   <input class="form-control" id="validationCustom02" type="text" name="price">
+                                                   <label for="price" class="col-form-label"><span>*</span> Ürün Fiyatı</label>
+                                                   <input class="form-control" id="price" type="text" name="price">
+                                                   <span class="text-danger error-text " data-id="price"></span>
                                                </div>
                                            </div>
                                            <div class="col-xl-6">
                                                <div class="form-group">
-                                                   <label for="validationCustom02" class="col-form-label">Ürün İndirim Fiyatı</label>
-                                                   <input class="form-control" id="validationCustom02" type="text" name="discount">
+                                                   <label for="discount" class="col-form-label">Ürün İndirim Fiyatı</label>
+                                                   <input class="form-control" id="discount" type="text" name="discount">
+                                                   <span class="text-danger error-text " data-id="discount"></span>
                                                </div>
                                            </div>
                                        </div>
@@ -82,18 +84,19 @@
                                         <label class="col-form-label"><span>*</span> Durum</label>
                                         <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
                                             <label class="d-block" for="edo-ani">
-                                                <input class="radio_animated" id="edo-ani" type="radio" name="rdo-ani">
+                                                <input class="radio_animated" id="edo-ani" type="radio" name="enable">
                                                 Aktif
                                             </label>
                                             <label class="d-block" for="edo-ani1">
-                                                <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">
+                                                <input class="radio_animated" id="edo-ani1" type="radio" name="disable">
                                                 Pasif
                                             </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label pt-0"> Ürün Fotoğrafı Ekle</label>
-                                        <div class="box-input-file"><input class="upload" type="file" id="photo"><i class="fa fa-plus"></i></div>
+                                        <div class="box-input-file"><input class="upload" type="file" id="photo" name="images"><i class="fa fa-plus"></i></div>
+                                        <span class="text-danger error-text " data-id="images"></span>
                                     </div>
                                     <div hidden class="form-group noHidden" style="margin-top: 25px;">
                                         <label class="col-form-label pt-0"> Ürün Fotoğrafı</label>
@@ -112,7 +115,7 @@
                                 <div class="digital-add needs-validation">
                                     <div class="form-group mb-0">
                                         <div class="description-sm">
-                                            <textarea id="editor1" name="editor1" cols="10" rows="4"></textarea>
+                                            <textarea id="about" name="about" cols="10" rows="4"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -126,15 +129,15 @@
                                 <div class="digital-add needs-validation">
                                     <div class="form-group">
                                         <label for="validationCustom05" class="col-form-label pt-0"> Meta Keywords</label>
-                                        <input class="form-control" id="validationCustom05" type="text">
+                                        <input class="form-control" id="validationCustom05" type="text" name="keywords">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Meta Description</label>
-                                        <textarea rows="4" cols="12"></textarea>
+                                        <textarea rows="4" cols="12" name="description"></textarea>
                                     </div>
                                     <div class="form-group mb-0">
                                         <div class="product-buttons text-center">
-                                            <button type="submit" class="btn btn-primary">Ekle</button>
+                                            <button type="submit" class="btn btn-primary productAdd">Ekle</button>
                                         </div>
                                     </div>
                                 </div>
@@ -155,19 +158,48 @@
     <script src="{{(asset('Backend/assets/js/dropzone/dropzone-script.js'))}}"></script>
     <script>
         $(document).ready(()=>{
+            $('#discount').change(function () {
+                if (isNumeric('#discount', 'discount', 'Lütfen sayısal değer giriniz.'))
+                    $('#discount').val(' ');
+            });
+            $('#price').change(function () {
+                if(isNumeric('#price', 'price', 'Lütfen sayısal değer giriniz.'))
+                    $('#price').val(' ');
+            });
+
+
             $('#photo').change(function(){
                 const file = this.files[0];
-                console.log(file);
-                if (file){
-                    let reader = new FileReader();
-                    reader.onload = function(event){
-                        console.log(event.target.result);
-                        $('#imgPreview').attr('src', event.target.result);
-                        $('.noHidden').prop('hidden', false);
+                if ((file.type == 'image/jpeg') ||file.type == 'image/jpg')
+                {
+                    if (file){
+                        let reader = new FileReader();
+                        reader.onload = function(event){
+                            console.log(event.target.result);
+                            $('#imgPreview').attr('src', event.target.result);
+                            $('.noHidden').prop('hidden', false);
+                        }
+                        reader.readAsDataURL(file);
                     }
-                    reader.readAsDataURL(file);
+
+                    $('span[data-id="images"]').hide();
                 }
+                else
+                    $('span[data-id="images"]').text('Lütfen resim uzantısını .jpg olarak değiştiriniz.');
+
             });
+
+
+            // Numeric sayi hatası verme
+            function isNumeric(id, dataId, Text) {
+                if (!$.isNumeric($(id).val()))
+                {
+                    $('span[data-id='+dataId+']').text(Text);
+                    return true;
+                }
+                else
+                    $('span[data-id='+dataId+']').hide();
+            }
         });
     </script>
 @endsection
