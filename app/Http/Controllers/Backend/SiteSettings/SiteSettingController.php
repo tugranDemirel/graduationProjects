@@ -48,12 +48,12 @@ class SiteSettingController extends Controller
 
                 if ($request->hasFile('favicon'))
                 {
-                    $logoFavicon = Helper::imageUpload($request->file, $request->title, 'uploads/site_settings');
+                    $logoFavicon = Helper::imageUpload($request->file, $request->title, 'uploads/site_settings', 'favicon');
                     $request->logo = $logoFavicon;
                 }
                 if ($request->hasFile('logo'))
                 {
-                    $logoMove = Helper::imageUpload($request->file, $request->title, 'uploads/site_settings');
+                    $logoMove = Helper::imageUpload($request->file, $request->title, 'uploads/site_settings',  'logo');
                     $request->logo = $logoMove;
                 }
 

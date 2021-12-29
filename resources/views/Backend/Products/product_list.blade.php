@@ -55,7 +55,7 @@
                                         <td><button data-id="{{$value->id}}" class="changeStatus @if($value->status == 0)  btn-primary @else btn-success @endif  btn-sm"> @if($value->status == 0)  İnaktif @else Aktif @endif</button></td>
                                         <td >
                                             <a href="{{ route('product.edit', $value->hash ) }}" title="Düzenle" class="btn btn-sm"><i style="font-size: 10px; color: green;" class="fas fa-pen" ></i></a>
-                                            <a href="{{route('product.destroy', $value->id)}}" title="Sil" class="btn btn-sm"><i class="fas fa-trash" style="font-size: 10px; color: red;"></i></a>
+                                            <a href="{{route('product.destroy', $value->hash)}}" title="Sil" class="btn btn-sm"><i class="fas fa-trash" style="font-size: 10px; color: red;"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

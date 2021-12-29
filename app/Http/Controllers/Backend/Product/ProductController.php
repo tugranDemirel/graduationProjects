@@ -153,18 +153,34 @@ class ProductController extends Controller
                 }
             }
         }
-        if($request->hash == 'pnftfhbwtvnmhwkvdfmywtpgpngr')
-            return 'doğry';
+        else
+        {
+            toastError('Geçersiz işlem.');
+            return redirect()->back();
+        }
     }
 
     // URUN DESTROY
 
-    public function destroy()
+    public function destroy($hash)
     {
         if (Auth::check())
         {
-            toastSuccess('Başarılı bir şekilde silme işlemi gerçekleştirilmiştir');
-            return redirect()->route('product.list');
+            dd($hash);
+            $product = Product::find($hash);
+            if ($product)
+            {
+                $unlinkImage = $product->images;
+                $unlik = Helper::deleteOldImage($unlinkImage);
+                toastSuccess('Başarılı bir şekilde silme işlemi gerçekleştirilmiştir');
+                return redirect()->route('product.list');
+            }
+            else
+            {
+                toastError('Böyle bir ürün bulunamadı.');
+                return redirect()->back();
+            }
+
         }
         else
         {
