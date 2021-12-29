@@ -83,6 +83,7 @@ Route::prefix('panel')->middleware('isAdmin')->group(function (){
         Route::post('/eklendi', [ProductController::class, 'create'])->name('product.create');
         Route::get('/listesi', [ProductController::class, 'list'])->name('product.list');
         Route::get('/edit/{hash}', [ProductController::class, 'edit'])->name('product.edit');
+        Route::post('/update/{hash}/{id}', [ProductController::class, 'update'])->name('product.update');
         Route::get('destroy/{hash}', [BrandController::class, 'destroy'])->name('product.destroy');
     });
 

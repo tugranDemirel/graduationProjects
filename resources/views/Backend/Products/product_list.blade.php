@@ -48,7 +48,7 @@
                                 @foreach($products as $value)
                                     <tr>
                                         <th scope="row">{{$loop->iteration}}</th>
-                                        <td><img src="{{asset('uploads/'.$value->images)}}" class="blur-up lazyloaded" style="height: 50px; width: 50px;"></td>
+                                        <td><img src="{{asset($value->images)}}" class="blur-up lazyloaded" style="height: 50px; width: 50px;"></td>
                                         <td>{{$value->title}}</td>
                                         <td>{{$value->created_at}}</td>
                                         <td>{{$value->updated_at}}</td>

@@ -3,17 +3,23 @@
 namespace App\Support;
 
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\Input;
 
 class Helper
 {
-    public static function imageUpload($file, String $path)
+//    FILE UPLOAD FUNCTION
+    public static function imageUpload($file, string $title, string $path)
     {
-        $name = date('d-m-Y-H-i-s') . '.' . $file->extension();
-        $file->move(public_path($path), $name);
-        $move = $path . '/' .  $name;
-        return $move;
+        /*
+         *  $file = $request->file
+         *  $title = request->title
+         *  $path = image file path
+         * */
+            $imageName = Str::slug($title, '-') . '-' . rand(1200, 199999) . '.' .$file->extension(); // getClientOriginalExtension()
+            $file->move(public_path($path), $imageName);
+            $move = $path.'/'.$imageName;
+            return $move;
     }
-
     public static function deleteOldImage(string $path)
     {
         return unlink(public_path($path));

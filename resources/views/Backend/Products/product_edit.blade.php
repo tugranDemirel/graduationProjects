@@ -1,5 +1,5 @@
 @extends('Backend.layouts.master')
-@section('title') {{ kerem()  }} @endsection
+@section('title')  @endsection
 @section('css')
     <!-- Dropzone css-->
     <link rel="stylesheet" type="text/css" href="{{asset('Backend/assets/css/vendors/dropzone.css')}}">
@@ -26,7 +26,7 @@
 
         <!-- Container-fluid starts-->
         <div class="container-fluid">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{route('product.update', [$product->hash, $product->id])}}" method="POST" enctype="multipart/form-data">
                 <div class="row product-adding">
                     @csrf
                     <div class="col-xl-6 ">
@@ -70,7 +70,7 @@
                                             <div class="col-xl-6">
                                                 <div class="form-group">
                                                     <label for="discount" class="col-form-label">Ürün İndirim Fiyatı</label>
-                                                    <input class="form-control" id="discount" type="text" name="discount" ">
+                                                    <input class="form-control" id="discount" type="text" name="discount" value="{{$product->discount}}">
                                                     <span class="text-danger error-text " data-id="discount"></span>
                                                 </div>
                                             </div>
@@ -78,7 +78,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="validationCustom02" class="col-form-label"><span>*</span> Ürün Kodu</label>
-                                        <input class="form-control" id="validationCustom02" type="text" name="code">
+                                        <input class="form-control" id="validationCustom02" type="text" name="code" value="{{$product->code}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label"><span>*</span> Durum</label>
@@ -98,9 +98,9 @@
                                         <div class="box-input-file"><input class="upload" type="file" id="photo" name="images"><i class="fa fa-plus"></i></div>
                                         <span class="text-danger error-text " data-id="images"></span>
                                     </div>
-                                    <div hidden class="form-group noHidden" style="margin-top: 25px;">
+                                    <div  class="form-group noHidden" style="margin-top: 25px;">
                                         <label class="col-form-label pt-0"> Ürün Fotoğrafı</label>
-                                        <div  class=" box-input-file"><img  class="img-fluid rounded mx-auto d-block" src=""id="imgPreview" style="width: 485px !important; height: 485px !important;" ></div>
+                                        <div  class=" box-input-file"><img  class="img-fluid rounded mx-auto d-block" src="{{asset($product->images)}}" id="imgPreview" style="width: 485px !important; height: 485px !important;" ></div>
                                     </div>
                                 </div>
                             </div>
@@ -129,11 +129,11 @@
                                 <div class="digital-add needs-validation">
                                     <div class="form-group">
                                         <label for="validationCustom05" class="col-form-label pt-0"> Meta Keywords</label>
-                                        <input class="form-control" id="validationCustom05" type="text" name="keywords">
+                                        <input class="form-control" id="validationCustom05" type="text" name="keywords" value="{{$product->keywords}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Meta Description</label>
-                                        <textarea rows="4" cols="12" name="description"></textarea>
+                                        <textarea rows="4" cols="12" name="description">{{$product->description}}</textarea>
                                     </div>
                                     <div class="form-group mb-0">
                                         <div class="product-buttons text-center">

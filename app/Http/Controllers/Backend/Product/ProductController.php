@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Menu;
 use App\Models\Product;
+use App\Support\Helper;
 use Delight\Random\Random;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -107,6 +108,53 @@ class ProductController extends Controller
             toastError('Geçersiz işlem.');
             return redirect()->back();
         }
+    }
+
+    public function update(Request $request, $hash)
+    {
+        if (Auth::check())
+        {
+            $isProduct = Product::where('hash',$hash)->whereNotIn('id', [$request->id])->first();
+            if ($isProduct)
+            {
+                toastr()->error('Böyle bir ürün mevcuttur.');
+                return redirect()->back();
+            }
+            else
+            {
+                $product = Product::where('hash', $hash)->where('id', $request->id)->first();
+
+                $product->title = $request->title;
+                $product->slug = Str::slug($request->title).'-'.Random::alphanumericHumanString(10);
+                $product->about = $request->about;
+                $product->description = $request->description;
+                $product->keywords = $request->keywords;
+                $product->hash = $hash;
+                $product->price = $request->price;
+                $product->discount = $request->discount;
+                $product->stock = 10;
+                $product->menu_id = $request->menu;
+                $product->brand_id = $request->brand;
+                $product->code = $request->code;
+                $product->status = 1;
+                $product->hit = 0;
+                if ($request->hasFile('images'))
+                {
+                    $move = Helper::imageUpload($request->images, $request->title, 'uploads/products');
+                    $product->images = $move;
+
+                }
+
+                $isSave = $product->save();
+                if ($isSave)
+                {
+                    toastSuccess('Başarılı bir şekilde güncelleme işlemi gerçekleştirilmiştir.');
+                    return redirect()->route('product.list');
+                }
+            }
+        }
+        if($request->hash == 'pnftfhbwtvnmhwkvdfmywtpgpngr')
+            return 'doğry';
     }
 
     // URUN DESTROY
