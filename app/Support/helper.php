@@ -24,6 +24,11 @@ class Helper
     }
     public static function deleteOldImage(string $path)
     {
-        return unlink(public_path($path));
+        if (is_file($path))
+        {
+            return unlink(public_path($path));
+        }
+        else
+            return false;
     }
 }

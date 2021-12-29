@@ -166,12 +166,13 @@ class ProductController extends Controller
     {
         if (Auth::check())
         {
-            dd($hash);
-            $product = Product::find($hash);
+            $product = Product::where('hash',$hash)->first();
             if ($product)
             {
                 $unlinkImage = $product->images;
                 $unlik = Helper::deleteOldImage($unlinkImage);
+                $product->delete();
+
                 toastSuccess('Başarılı bir şekilde silme işlemi gerçekleştirilmiştir');
                 return redirect()->route('product.list');
             }
