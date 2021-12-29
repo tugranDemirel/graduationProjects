@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\SiteSettings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SiteSettingsRequest;
+use App\Support\Helper;
 use Illuminate\Http\Request;
 use App\Models\SiteSettings;
 use Illuminate\Support\Facades\Auth;
@@ -47,15 +48,13 @@ class SiteSettingController extends Controller
 
                 if ($request->hasFile('favicon'))
                 {
-                    $imageName = Str::slug($request->title, '-') . '-' . rand(1200, 199999) . '.' . $request->favicon->extension(); // getClientOriginalExtension()
-                    $request->favicon->move(public_path('uploads/site_settings'), $imageName);
-                    $site_settings->favicon = 'uploads/site_settings/' . $imageName;
+                    $logoFavicon = Helper::imageUpload($request->file, $request->title, 'uploads/site_settings');
+                    $request->logo = $logoFavicon;
                 }
                 if ($request->hasFile('logo'))
                 {
-                    $imageName = Str::slug($request->title, '-') . '-' . rand(1200, 199999) . '.' . $request->logo->extension(); // getClientOriginalExtension()
-                    $request->logo->move(public_path('uploads/site_settings'), $imageName);
-                    $site_settings->logo = 'uploads/site_settings/' . $imageName;
+                    $logoMove = Helper::imageUpload($request->file, $request->title, 'uploads/site_settings');
+                    $request->logo = $logoMove;
                 }
 
                 $site_settings->save();
