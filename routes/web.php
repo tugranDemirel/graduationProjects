@@ -32,6 +32,7 @@ Route::middleware('isLogin')->group(function (){
 
 Route::get('cikis', [LoginController::class, 'logout'])->name('logout');
 
+// Password reset route
 Route::get('sifre/yenile', [ResetPasswordController::class, 'showPasswordForm'])->name('resetPassword');
 Route::get('sifre/yenile/{token}', [ResetPasswordController::class, 'resetPasswordShowForm'])->name('resetPassword.showForm');
 Route::post('sifre/yenile', [ResetPasswordController::class, 'reset']);
@@ -50,9 +51,11 @@ Route::prefix('panel')->middleware('isAdmin')->group(function (){
         return view('Backend.Site Settings.site_setting');
     })->name('admin.site.settings');
 
+//    Mail route
     Route::get('mail-ayarlari',[SMTPSettingsController::class, 'index'])->name('admin.site.mail.settings');
     Route::post('mail-ayarlari/{id}',[SMTPSettingsController::class, 'update'])->name('admin.site.mail.settings.update');
 
+//    site setting route
     Route::get('site-ayarlari',[SiteSettingController::class, 'index'])->name('admin.site.settings');
     Route::post('site-ayarlari/{id}',[SiteSettingController::class, 'update'])->name('admin.site.settings.update');
 
@@ -62,10 +65,12 @@ Route::prefix('panel')->middleware('isAdmin')->group(function (){
     Route::get('profil', [AdminProfilController::class, 'index'])->name('admin.profil');
     Route::post('profil/{id}', [AdminProfilController::class, 'update'])->name('admin.profil.update');
 
+//    sozlesme route
     Route::get('sozlesme/create', [PageController::class, 'create'])->name('sozlesme.create');
     Route::get('sozlesme/{id}', [PageController::class, 'destroy'])->name('sozlesme.destroy');
     Route::resource('sozlesme', PageController::class);
 
+//    menu route
     Route::get('menu/create', [MenuController::class, 'create'])->name('menu.create');
     Route::get('menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
     Route::resource('menu', MenuController::class);
@@ -74,10 +79,12 @@ Route::prefix('panel')->middleware('isAdmin')->group(function (){
     Route::get('submenu/{id}', [SubmenuController::class, 'destroy'])->name('submenu.destroy');
     Route::resource('submenu', SubmenuController::class);
 
+//     brand route
     Route::get('marka/create', [BrandController::class, 'create'])->name('marka.create');
     Route::get('marka/{id}', [BrandController::class, 'destroy'])->name('marka.destroy');
     Route::resource('marka', BrandController::class);
 
+//    product route
     Route::prefix('ürün')->group(function (){
         Route::get('/ekle', [ProductController::class, 'show'])->name('product.show');
         Route::post('/eklendi', [ProductController::class, 'create'])->name('product.create');
@@ -90,8 +97,8 @@ Route::prefix('panel')->middleware('isAdmin')->group(function (){
 });
 
 
-Route::get('/frontend', function () {
-    toastr()->info('Are you the 6 fingered man?');
+Route::get('/', function () {
+    toastr()->success('Are you the 6 fingered man?');
     return view('Frontend.index');
 });
 
