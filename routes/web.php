@@ -97,8 +97,5 @@ Route::prefix('panel')->middleware('isAdmin')->group(function (){
 });
 
 
-Route::get('/', function () {
-    toastr()->success('Are you the 6 fingered man?');
-    return view('Frontend.index');
-});
+Route::get('/', [App\Http\Controllers\Frontend\home\indexController::class, 'index'])->name('home');
 
