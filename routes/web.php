@@ -98,4 +98,6 @@ Route::prefix('panel')->middleware('isAdmin')->group(function (){
 
 
 Route::get('/', [App\Http\Controllers\Frontend\home\indexController::class, 'index'])->name('home');
-
+Route::name('kullanici')->prefix('kullanici')->group(function (){
+    Route::get('/', [\App\Http\Controllers\Frontend\user\indexController::class, 'index'])->name('index');
+});
