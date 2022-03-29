@@ -96,7 +96,8 @@ Route::prefix('panel')->middleware('isAdmin')->group(function (){
 
 });
 
-
+Route::get('/kayit-ol',[\App\Http\Controllers\Frontend\auth\register\indexController::class, 'index'])->name('register');
+Route::post('/kayit-ol',[\App\Http\Controllers\Frontend\auth\register\indexController::class, 'store'])->name('register');
 Route::get('/', [App\Http\Controllers\Frontend\home\indexController::class, 'index'])->name('home');
 Route::name('kullanici')->prefix('kullanici')->group(function (){
     Route::get('/', [\App\Http\Controllers\Frontend\user\indexController::class, 'index'])->name('index');
