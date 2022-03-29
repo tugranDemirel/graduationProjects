@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f248fac74b208263e88da7deae5f4c90",
+    "content-hash": "14a6412c7886d0c35cc1eaeda95c75e0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1046,6 +1046,62 @@
                 }
             ],
             "time": "2021-10-06T17:43:30+00:00"
+        },
+        {
+            "name": "herkod/laravel-tr",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/herkod/laravel-tr.git",
+                "reference": "74652619c06c9cdb8bc0caccf12bb98c91586d87"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/herkod/laravel-tr/zipball/74652619c06c9cdb8bc0caccf12bb98c91586d87",
+                "reference": "74652619c06c9cdb8bc0caccf12bb98c91586d87",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0||^7.0||^8.0||^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Herkod\\AppServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Herkod\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Herkod",
+                    "email": "info@herkod.com"
+                }
+            ],
+            "description": "Laravel İçin Türkçe Çeviri Dosyaları",
+            "keywords": [
+                "Turkish",
+                "lang",
+                "languages",
+                "laravel",
+                "localization",
+                "translation",
+                "turkce"
+            ],
+            "support": {
+                "issues": "https://github.com/herkod/laravel-tr/issues",
+                "source": "https://github.com/herkod/laravel-tr/tree/v1.0.2"
+            },
+            "time": "2022-03-07T14:30:50+00:00"
         },
         {
             "name": "laravel/framework",
